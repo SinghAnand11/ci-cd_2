@@ -24,4 +24,4 @@ deploy:
               echo "Deployment failed with response code: $response_code"
               cat response.txt  # Print the response body
               exit 1
-            fi
+            
