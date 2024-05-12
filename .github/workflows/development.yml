@@ -6,12 +6,6 @@ on:
       - completed
 
   workflow_dispatch:
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [main]
-
 jobs:
   build:
     runs-on: ubuntu-latest
