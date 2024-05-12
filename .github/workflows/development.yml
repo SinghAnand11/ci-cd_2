@@ -6,22 +6,30 @@ on:
       - completed
 
   workflow_dispatch:
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+
 jobs:
-deploy:
-    machine:
-      image: ubuntu-2004:current
-    resource_class: medium
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - run:
-          name: Deploy API to Render
-          command: |
-            response=$(curl -s -w "%{http_code}" -o response.txt ${{ secrets.RENDER_DEPLOY_HOOK_URL }})
-            response_code=${response:(-3)}
-            if [ $response_code -eq 200 ]; then
-              echo "Deployment successful!"
-              cat response.txt  # Print the response body
-            else
-              echo "Deployment failed with response code: $response_code"
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build, tag, and push image to DockerHub
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          IMAGE_NAME: streamlit-ci-cd-image
+        run: |
+          docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME .
+          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest$response_code"
               cat response.txt  # Print the response body
               exit 1
             
