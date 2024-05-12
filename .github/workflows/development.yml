@@ -25,15 +25,10 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
-      - name: Install Homebrew (if not already installed)
-        run: |
-           if ! which brew >/dev/null; then
-              /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-           fi
-      - name: Tap render-oss repository
-        run: brew tap render-oss/render
-      - name: Install render CLI
-        run: brew install render
+      - name: Download Render CLI
+        uses: render-oss/render-cli@v0.1.10
+        with:
+          token: ${{ secrets.RENDER_API_KEY }}
       - name: Login to Render
         run: render login ${{ secrets.RENDER_API_KEY }}
       - name: Deploy to Render
