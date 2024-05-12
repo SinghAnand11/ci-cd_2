@@ -32,4 +32,4 @@ jobs:
       - name: Login to Render
         run: render login ${{ secrets.RENDER_API_KEY }}
       - name: Deploy to Render
-        run: render deploy ${{ secrets.RENDER_SERVICE_ID }} -f dockerfile:Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/your-app-name:latest
+        run: render deploy ${{ secrets.RENDER_SERVICE_ID }} -f . -t ${{ secrets.DOCKER_USERNAME }}/your-app-name:latest
