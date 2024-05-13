@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy to Render
-        uses: JorgeLNJunior/render-deploy@v1  # Deploy to Render using a community action
+        uses: JorgeLNJunior/render-deploy@v1.4.4  # Deploy to Render using a community action
         with:
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
