@@ -25,11 +25,9 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
-      - name: Download Render CLI
-        uses: render-oss/render-cli@v0.1.10
-        with:
-          token: ${{ secrets.RENDER_API_KEY }}
-      - name: Login to Render
-        run: render login ${{ secrets.RENDER_API_KEY }}
       - name: Deploy to Render
-        run: render deploy ${{ secrets.RENDER_SERVICE_ID }} -f . -t ${{ secrets.DOCKER_USERNAME }}/your-app-name:latest
+        uses: JorgeLNJunior/render-deploy@v1  # Deploy to Render using a community action
+        with:
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          image: ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest  # Use the pushed image
