@@ -30,4 +30,6 @@ jobs:
         with:
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
-          image: ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest  # Use the pushed image
+          github_deployment: true
+          deployment_environment: 'production'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
